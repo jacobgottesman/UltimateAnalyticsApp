@@ -6,13 +6,13 @@ st.set_page_config(layout='wide')
 # Function to create a sidebar based on the selected tab
 def create_sidebar(tab):
     if tab == 'On-Off +/- Metrics w/ Season Stats':
-        min_games = st.sidebar.slider('Select Minimum Number Games Played', 0, 15, 10)
+        min_games = st.sidebar.slider('Select Minimum Number Games', 0, 15, 10)
         years = st.sidebar.selectbox('Select Seasons', ('All', '2021', '2022', '2023'))
         positions = st.sidebar.selectbox('Select Positions', ('All', 'Cutter', 'Handler', 'Defender'))
         teams = st.sidebar.selectbox('Select Team', tuple(team_options))
         return min_games, years, positions, teams
     elif tab == 'Mixed Effects Model Metrics w/ Career Stats':
-        min_games1 = st.sidebar.slider('Select Minimum Number Games Played', 0, 100, 50)
+        min_games1 = st.sidebar.slider('Select Minimum Number Games', 0, 100, 50)
         positions1 = st.sidebar.selectbox('Select Positions', ('All', 'Cutter', 'Handler', 'Defender'), key='x')
         return min_games1, positions1
 
@@ -26,23 +26,25 @@ def data_upload():
     df2['year'] = df1['year'].astype(str)
 
     df1.rename(columns = {'predicted position' : 'Position', 'name' : 'Name', 'year': 'Year',
-                         'gamesPlayed': 'Games Played', 'goals': 'Goals', 'assists': 'Assists', 
+                         'gamesPlayed': 'Games', 'goals': 'Goals', 'assists': 'Assists', 
                          'blocks' : 'Blocks', 'o_point_on_off_rating': 'Offensive On-Off +/-',
                          'd_point_on_off_rating':'Defensive On-Off +/-', 'total_on_off_rating': 
                          'Total On-Off +/-', 'teams': 'Team', 'oPointsPlayed': 'Offensive Points',
                            'dPointsPlayed': 'Defensive Points'}, inplace = True)
     
     df2.rename(columns = {'position' : 'Position', 'name' : 'Name', 
-                        'gamesPlayed': 'Games Played', 'goals': 'Goals', 'assists': 'Assists', 
+                        'gamesPlayed': 'Games', 'goals': 'Goals', 'assists': 'Assists', 
                         'blocks' : 'Blocks', 'teams': 'Team', 'oPointsPlayed': 'Offensive Points',
                         'dPointsPlayed': 'Defensive Points', 'goal_rating' : 'Goal Rating',
                         'assist_rating': 'Assist Rating', 'oeff_rating': 'oEfficiency Rating', 'composite_rating' : 
                         'Composite Rating', 'block_rating': 'Block Rating'}, inplace = True)
     
-    df1 = df1[['Name', 'Position', 'Year', 'Team', 'Games Played', 'Goals', 'Assists', 'Blocks','Offensive Points', 'Defensive Points', 'Offensive On-Off +/-',
-             'Defensive On-Off +/-', 'Total On-Off +/-']]
-    df2 = df2[['Name', 'Position', 'Games Played', 'Goals', 'Assists', 'Blocks', 'oEfficiency', 'Offensive Points', 'Defensive Points', 'Goal Rating',
-             'Assist Rating', 'Block Rating', 'oEfficiency Rating', 'Composite Rating']]
+    df1 = df1[['Name', 'Position', 'Year', 'Team','Games', 'Total On-Off +/-','Offensive On-Off +/-','Defensive On-Off +/-',
+                'Offensive Points', 'Defensive Points', 'Goals', 'Assists', 'Blocks']]
+    df2 = df2[['Name', 'Position', 'Games', 'Composite Rating', 'Goal Rating','Assist Rating', 'Block Rating', 
+               'oEfficiency Rating','Goals', 'Assists', 'Blocks', 'oEfficiency', 'Offensive Points', 
+               'Defensive Points'
+              ]]
     return df1, df2
 
 
@@ -59,21 +61,36 @@ with st.sidebar:
 if tab_selection == 'On-Off +/- Metrics w/ Season Stats':
     # tab1, tab2 = st.tabs(['On-Off +/- Metrics w/ Season Stats', 'Mixed Effects Model Metrics w/ Career Stats'])
     min_games, years, positions, teams = create_sidebar(tab_selection)
+    
+    # changing index to have name (year) pinned on left
+    df1['Name (Year)']= df1.apply(lambda row: str(row['Name'] + ' ('+row['Year']+')'), axis =1)
+    df1.index = df1['Name (Year)']
+    df1 = df1[((years == 'All') | (df1['Year'] == years))]
+    df1.drop(columns = ['Name', 'Year', 'Name (Year)'], inplace = True)
 
     # with tab1:
     st.header("On-Off +/- Metrics w/ Season Stats")
-    st.dataframe(data=df1[(df1['Games Played'] >= min_games) & ((years == 'All') | (df1['Year'] == years)) &
+    st.dataframe(data=df1[(df1['Games'] >= min_games) &
                             ((positions == 'All') | (df1['Position'] == positions)) &
-                            ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800, hide_index = True)
+                            ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800)
         
+
 elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
     # tab1, tab2 = st.tabs(['On-Off +/- Metrics w/ Season Stats', 'Mixed Effects Model Metrics w/ Career Stats'])
     min_games1, positions1 =create_sidebar(tab_selection)
 
+    # changing index to name to have that column as pinned left column
+    df2.index = df2['Name']
+    df2.drop(columns = ['Name'], inplace = True)
+
     # with tab2:
     st.header("Mixed Effects Model Metrics w/ Career Stats")
-    st.dataframe(data=df2[(df2['Games Played'] >= min_games1) &
+    st.dataframe(data=df2[(df2['Games'] >= min_games1) &
                         ((positions1 == 'All') | (df2['Position'] == positions1))], 
-                        width = 1500, height = 800, hide_index = True)
+                        width = 1500, height = 800)
 
+    text = '''This project was created by Jacob Gottesman with the mentorship of Dr. Eric Gerber.  
+    The data in this project was gathered through the AUDL stats API along with the UFA webiste.  
+    More info on this project and data can be found in the link below'''
+    st.markdown(text)
 

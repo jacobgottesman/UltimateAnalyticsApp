@@ -1,5 +1,4 @@
 import streamlit as st
-from st_aggrid import AgGrid
 import pandas as pd
 
 st.set_page_config(layout='wide')

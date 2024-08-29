@@ -1,4 +1,5 @@
 import streamlit as st
+from st_aggrid import AgGrid
 import pandas as pd
 
 st.set_page_config(layout='wide')
@@ -9,7 +10,7 @@ def create_sidebar(tab):
         min_games = st.sidebar.slider('Select Minimum Number Games', 0, 15, 10)
         min_o_points = st.sidebar.slider('Select Minimum Offensive Points Per Game', 0, 20, 0)
         min_d_points = st.sidebar.slider('Select Minimum Defensive Points Per Game', 0, 20, 0)
-        years = st.sidebar.selectbox('Select Seasons', ('All', '2021', '2022', '2023'))
+        years = st.sidebar.selectbox('Select Seasons', ('All', '2021', '2022', '2023', '2024'))
         positions = st.sidebar.selectbox('Select Positions', ('All', 'Cutter', 'Handler', 'Defender'))
         teams = st.sidebar.selectbox('Select Team', tuple(team_options))
         return min_games, min_o_points, min_d_points, years, positions, teams
@@ -22,14 +23,14 @@ def create_sidebar(tab):
 
 @st.cache_data
 def data_upload():
-    df1 = pd.read_csv('final_dataframe.csv')
-    df2 = pd.read_csv('final_df_career.csv')
+    df1 = pd.read_csv('final_yearly_df_aug_24.csv')
+    df2 = pd.read_csv('career_stats_w_ratings_aug_24.csv')
     df1 = df1[df1['year']>=2021]
 
     df1['year'] = df1['year'].astype(str)
     df2['year'] = df1['year'].astype(str)
 
-    df1.rename(columns = {'predicted position' : 'Position', 'name' : 'Name', 'year': 'Year',
+    df1.rename(columns = {'position' : 'Position', 'name' : 'Name', 'year': 'Year',
                          'gamesPlayed': 'Games', 'goals': 'Goals', 'assists': 'Assists', 
                          'blocks' : 'Blocks', 'o_point_on_off_rating': 'Offensive On-Off +/-',
                          'd_point_on_off_rating':'Defensive On-Off +/-', 'total_on_off_rating': 

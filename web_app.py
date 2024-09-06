@@ -1,7 +1,5 @@
 import streamlit as st
-from st_aggrid import AgGrid
 import pandas as pd
-
 
 st.set_page_config(layout='wide')
 
@@ -24,8 +22,6 @@ def create_sidebar(tab):
 
 @st.cache_data
 def data_upload():
-
-    # load in files with on-off model and mixed model results
     df1 = pd.read_csv('final_yearly_df_aug_24.csv')
     df2 = pd.read_csv('career_stats_w_ratings_aug_24.csv')
     df1 = df1[df1['year']>=2021]
@@ -81,17 +77,8 @@ if tab_selection == 'On-Off +/- Metrics w/ Season Stats':
     st.dataframe(data=df1[(df1['Games'] >= min_games) & (df1['Offensive Points']>= min_o_points) & 
                           (df1['Defensive Points'] >= min_d_points) &
                             ((positions == 'All') | (df1['Position'] == positions)) &
-                            ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800)
-    
-    text = '''This project was created by Jacob Gottesman with the mentorship of Dr. Eric Gerber.  
-    The data in this project was gathered through the AUDL stats API along with the UFA webiste.  '''
-    st.markdown(text)
-    poster = "https://pbs.twimg.com/media/GK0wqkgaIAQmY-4?format=jpg&name=4096x4096"
-    st.markdown("View more info on this project: [poster](%s)" % poster)
-    linkedin = "https://www.linkedin.com/in/jacob-gottesman-neu/"
-    st.markdown("Linkedin: [link](%s)" % linkedin)
+                            ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800, hide_index = True)
         
-
 elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
     # tab1, tab2 = st.tabs(['On-Off +/- Metrics w/ Season Stats', 'Mixed Effects Model Metrics w/ Career Stats'])
     min_games1, min_o_points, min_d_points, positions1 =create_sidebar(tab_selection)
@@ -105,13 +92,6 @@ elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
     st.dataframe(data=df2[(df2['Games'] >= min_games1) &( df2['Offensive Points']>= min_o_points) & 
                           (df2['Defensive Points'] >= min_d_points) &
                         ((positions1 == 'All') | (df2['Position'] == positions1))], 
-                        width = 1500, height = 800)
+                        width = 1500, height = 800, hide_index = True)
 
-    text = '''This project was created by Jacob Gottesman with the mentorship of Dr. Eric Gerber.  
-    The data in this project was gathered through the AUDL stats API along with the UFA webiste.  '''
-    st.markdown(text)
-    poster = "https://pbs.twimg.com/media/GK0wqkgaIAQmY-4?format=jpg&name=4096x4096"
-    st.markdown("View more info on this project: [poster](%s)" % poster)
-    linkedin = "https://www.linkedin.com/in/jacob-gottesman-neu/"
-    st.markdown("Linkedin: [link](%s)" % linkedin)
- 
+

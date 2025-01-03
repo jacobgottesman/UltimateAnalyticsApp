@@ -6,7 +6,7 @@ In order to successfully recreate the model, follow these steps.
 
 1. Ensure you have the needed libraries to all code
      - Install the AUDL API by running `pip install audl` in a notebook or in a terminal
-     - It require a veriosn of pandas older than 2.0 to work
+     - It requires a version of pandas older than 2.0 to work
 2.  Get Data
      - Open the file `getting_data.ipynb`
      - In the second cell, change filenames to your desired CSV filenames

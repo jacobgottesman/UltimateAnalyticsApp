@@ -77,7 +77,7 @@ if tab_selection == 'On-Off +/- Metrics w/ Season Stats':
     st.dataframe(data=df1[(df1['Games'] >= min_games) & (df1['Offensive Points']>= min_o_points) & 
                           (df1['Defensive Points'] >= min_d_points) &
                             ((positions == 'All') | (df1['Position'] == positions)) &
-                            ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800, hide_index = True)
+                            ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800, hide_index = False)
         
 elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
     # tab1, tab2 = st.tabs(['On-Off +/- Metrics w/ Season Stats', 'Mixed Effects Model Metrics w/ Career Stats'])
@@ -92,6 +92,6 @@ elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
     st.dataframe(data=df2[(df2['Games'] >= min_games1) &( df2['Offensive Points']>= min_o_points) & 
                           (df2['Defensive Points'] >= min_d_points) &
                         ((positions1 == 'All') | (df2['Position'] == positions1))], 
-                        width = 1500, height = 800, hide_index = True)
+                        width = 1500, height = 800, hide_index = False)
 
 

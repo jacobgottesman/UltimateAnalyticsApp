@@ -1,6 +1,6 @@
 ## Player Rating and Evaluation Systems for Ultimate Frisbee
 
-This Repository contains all code needed to replicate my work in creating player rating and evaluation systems for profesional Ultimate Frisbee.
+This Repository contains all code needed to replicate my work in creating player rating and evaluation systems for professional Ultimate Frisbee.
 
 In order to successfully recreate the model, follow these steps.
 
@@ -17,21 +17,21 @@ In order to successfully recreate the model, follow these steps.
      - In Cell 2, set filenames for your career stats file and the file to save with career stats with positional predictions
      - Either run the whole file to replicate the experiment or results or if you just want prediction run cells 1-3 and then run cell with comment #RUN HERE on top of the cell
 4. Run Mixed Model
-     - Open file called `mixed_model.ipynb`
+     - Open a file called `mixed_model.ipynb`
      - In cell 2 change filenames as appropriate
-     - It will by default get rating over the course of the entire league history. If you want to replicate the results from the paper (2021-2024) then uncomment the last line in the third cell before running the notebook.
+     - It will by default get ratings over the course of the entire league history. If you want to replicate the results from the paper (2021-2024) then uncomment the last line in the third cell before running the notebook.
 5. Run On-Off Model
       - For every year that you are running this model make sure that you have a separate file named yearplaydata.csv for example for 2024 it would be 2024playdata.csv
       - Open file called `on off model .ipynb`
       - Set correct filenames in cell 2
       - Run the entire Notebook
-6. Make Visualization that are presnt in paper
+6. Make Visualizations that are in my paper
       - open the file called `visualizing results.ipynb`
       - Change the filenames to your file names in cell 2
       - run the notebook
 7. Make a web app with updated results
      - In the file called `web_app_temp.py` replace the filenames in lines
-     - To run the app, in a terminal you need to navigate to the correct folder and run `streamlit run web_app_temp.py`
+     - To run the app, in a terminal, you need to navigate to the correct folder and run `streamlit run web_app_temp.py`
      - If t doesn't redirect you to the page immediately then, click the link or enter the ip address in a browser
 
 

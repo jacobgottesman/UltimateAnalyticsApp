@@ -22,8 +22,8 @@ def create_sidebar(tab):
 
 @st.cache_data
 def data_upload():
-    df1 = pd.read_csv('final_yearly_df_aug_24.csv')
-    df2 = pd.read_csv('career_stats_w_ratings_aug_24.csv')
+    df1 = pd.read_csv('data/final_yearly_df_aug_24.csv')
+    df2 = pd.read_csv('data/career_stats_w_ratings_aug_24.csv')
     df1 = df1[df1['year']>=2021]
 
     df1['year'] = df1['year'].astype(str)

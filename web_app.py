@@ -78,7 +78,16 @@ if tab_selection == 'On-Off +/- Metrics w/ Season Stats':
                           (df1['Defensive Points'] >= min_d_points) &
                             ((positions == 'All') | (df1['Position'] == positions)) &
                             ((teams == 'All') | (df1['Team'] == teams))], width = 1500, height = 800, hide_index = False)
-        
+
+    text = '''This project was created by Jacob Gottesman with the mentorship of Dr. Eric Gerber.  
+    The data in this project was gathered through the AUDL stats API along with the UFA webiste.  '''
+    st.markdown(text)
+    poster = "https://pbs.twimg.com/media/GK0wqkgaIAQmY-4?format=jpg&name=4096x4096"
+    st.markdown("View more info on this project: [poster](%s)" % poster)
+    linkedin = "https://www.linkedin.com/in/jacob-gottesman-neu/"
+    st.markdown("Linkedin: [link](%s)" % linkedin)     
+
+
 elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
     # tab1, tab2 = st.tabs(['On-Off +/- Metrics w/ Season Stats', 'Mixed Effects Model Metrics w/ Career Stats'])
     min_games1, min_o_points, min_d_points, positions1 =create_sidebar(tab_selection)
@@ -94,4 +103,10 @@ elif tab_selection == 'Mixed Effects Model Metrics w/ Career Stats':
                         ((positions1 == 'All') | (df2['Position'] == positions1))], 
                         width = 1500, height = 800, hide_index = False)
 
-
+    text = '''This project was created by Jacob Gottesman with the mentorship of Dr. Eric Gerber.  
+    The data in this project was gathered through the AUDL stats API along with the UFA webiste.  '''
+    st.markdown(text)
+    poster = "https://pbs.twimg.com/media/GK0wqkgaIAQmY-4?format=jpg&name=4096x4096"
+    st.markdown("View more info on this project: [poster](%s)" % poster)
+    linkedin = "https://www.linkedin.com/in/jacob-gottesman-neu/"
+    st.markdown("Linkedin: [link](%s)" % linkedin)

@@ -4,6 +4,8 @@ This Repository contains all code needed to replicate my work in creating player
 
 In order to successfully recreate the model, follow these steps.
 
+**important note:** as of January 2025 the AUDL API appears to be nonfunctional for at least some functions. To run the model, you can start at step 3 and use the files in the data folder.
+
 1. Ensure you have the needed libraries to all code
      - Install the AUDL API by running `pip install audl` in a notebook or in a terminal
      - It requires a version of pandas older than 2.0 to work
